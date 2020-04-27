@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import { FlatList } from 'react-native';
 
+import { Product as ProductInterface } from './index';
+
 export const Container = styled.SafeAreaView`
   flex: 1;
   align-items: center;
@@ -13,7 +15,9 @@ export const ProductContainer = styled.View`
   flex-direction: row;
 `;
 
-export const ProductList = styled(FlatList).attrs({
+export const ProductList = styled(
+  FlatList as new () => FlatList<ProductInterface>,
+).attrs({
   numColumns: 2,
 })`
   flex: 1;
