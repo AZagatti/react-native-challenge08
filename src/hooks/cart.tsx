@@ -86,10 +86,14 @@ const CartProvider: React.FC = ({ children }) => {
   const decrement = useCallback(
     async id => {
       const newProducts = products.map(p =>
-        p.id === id && p.quantity > 1 ? { ...p, quantity: p.quantity - 1 } : p,
+        p.id === id ? { ...p, quantity: p.quantity - 1 } : p,
       );
 
-      setProducts(newProducts);
+      const filterProducts = newProducts.filter(
+        p => !(p.id === id && p.quantity === 0),
+      );
+
+      setProducts(filterProducts);
 
       await AsyncStorage.setItem('@GoMP:products', JSON.stringify(newProducts));
     },
